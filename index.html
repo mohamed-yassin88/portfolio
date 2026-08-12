@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohamed Yassin | WordPress & WooCommerce Expert Developer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-dark: #0b0f17;
+            --bg-card: #151c28;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-gold: #f59e0b;
+            --accent-gold-glow: rgba(245, 158, 11, 0.4);
+            --accent-blue: #38bdf8;
+            --accent-blue-glow: rgba(56, 189, 248, 0.4);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --container-width: 1150px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Glowing Background Elements */
+        .glow-sphere {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.5;
+            animation: pulseGlow 8s infinite alternate;
+        }
+        .glow-1 { top: -10%; left: -10%; width: 500px; height: 500px; background: var(--accent-gold-glow); }
+        .glow-2 { bottom: 10%; right: -10%; width: 600px; height: 600px; background: var(--accent-blue-glow); }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1) translate(0, 0); opacity: 0.3; }
+            100% { transform: scale(1.2) translate(30px, -30px); opacity: 0.6; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(11, 15, 23, 0.75);
+            backdrop-filter: blur(16px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 1.5rem;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-main);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span { color: var(--accent-gold); }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-gold);
+            text-shadow: 0 0 10px var(--accent-gold-glow);
+        }
+
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 7rem 1.5rem 3rem;
+        }
+
+        /* Hero Section with Profile Image */
+        .hero {
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3rem;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-image {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent-gold);
+            box-shadow: 0 0 30px var(--accent-gold-glow);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .hero-image-wrapper:hover .hero-image {
+            transform: scale(1.03);
+            box-shadow: 0 0 45px var(--accent-gold-glow);
+        }
+
+        .badge {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--accent-gold);
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            box-shadow: 0 0 15px var(--accent-gold-glow);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        .hero h1 {
+            font-size: 3.8rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero h2 {
+            font-size: 1.8rem;
+            color: var(--accent-blue);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 720px;
+            margin-bottom: 2.5rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.2rem;
+        }
+
+        .btn {
+            padding: 0.9rem 2rem;
+            border-radius: 10px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--accent-gold);
+            color: #0b0f17;
+            box-shadow: 0 4px 20px var(--accent-gold-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px var(--accent-gold-glow);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--text-muted);
+            transform: translateY(-3px);
+        }
+
+        /* Clients Logo Carousel Section */
+        .clients-section {
+            padding: 3rem 0;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            margin: 2rem 0 5rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .clients-title {
+            text-align: center;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+
+        .logo-slider {
+            display: flex;
+            width: 100%;
+            overflow: hidden;
+            mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+        }
+
+        .logo-track {
+            display: flex;
+            gap: 3rem;
+            animation: scrollLogos 25s linear infinite;
+            white-space: nowrap;
+        }
+
+        .logo-track:hover { animation-play-state: paused; }
+
+        @keyframes scrollLogos {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .logo-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 1.2rem 2.5rem;
+            border-radius: 14px;
+            min-width: 220px;
+            height: 95px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .logo-item:hover {
+            border-color: var(--accent-gold);
+            transform: translateY(-4px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        }
+
+        .logo-item img {
+            max-height: 65px;
+            max-width: 170px;
+            object-fit: contain;
+            filter: grayscale(100%) brightness(0.85);
+            transition: filter 0.3s, transform 0.3s;
+        }
+
+        .logo-item:hover img {
+            filter: grayscale(0%) brightness(1);
+            transform: scale(1.08);
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-gold), transparent);
+            border-radius: 2px;
+        }
+
+        /* Skills Grid with Glassmorphism */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.8rem;
+        }
+
+        .skill-card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(245, 158, 11, 0.4);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .skill-card h3 {
+            font-size: 1.3rem;
+            color: var(--accent-gold);
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .skill-card ul { list-style: none; }
+
+        .skill-card li {
+            color: var(--text-muted);
+            margin-bottom: 0.6rem;
+            font-size: 0.95rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .skill-card li::before {
+            content: '⚡';
+            position: absolute;
+            left: 0;
+            font-size: 0.8rem;
+        }
+
+        /* Timeline / Experience */
+        .timeline { display: flex; flex-direction: column; gap: 2rem; }
+
+        .exp-item {
+            background: var(--bg-card);
+            padding: 2.2rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s;
+        }
+
+        .exp-item:hover {
+            border-color: rgba(56, 189, 248, 0.4);
+        }
+
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            margin-bottom: 1.2rem;
+        }
+
+        .exp-title h3 { font-size: 1.4rem; font-weight: 700; }
+        .exp-title h4 { color: var(--accent-blue); font-size: 1.05rem; font-weight: 600; }
+
+        .exp-date {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+        }
+
+        .exp-bullets { list-style: none; }
+
+        .exp-bullets li {
+            color: var(--text-muted);
+            margin-bottom: 0.8rem;
+            font-size: 0.98rem;
+            position: relative;
+            padding-left: 1.8rem;
+        }
+
+        .exp-bullets li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-gold);
+            font-weight: 800;
+        }
+
+        /* Contact Section */
+        .contact-box {
+            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(21, 28, 40, 0.5) 100%);
+            padding: 3.5rem 2rem;
+            border-radius: 24px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-box h3 { font-size: 2.2rem; margin-bottom: 1rem; font-weight: 800; }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 2.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--text-main);
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1rem 1.8rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .contact-item:hover {
+            border-color: var(--accent-gold);
+            background: rgba(245, 158, 11, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .contact-item i { color: var(--accent-gold); font-size: 1.2rem; }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Scroll Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 992px) {
+            .hero {
+                flex-direction: column-reverse;
+                text-align: center;
+                justify-content: center;
+            }
+            .hero-content {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .hero-image {
+                width: 220px;
+                height: 220px;
+                margin-bottom: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.6rem; }
+            .hero h2 { font-size: 1.3rem; }
+            .nav-links { display: none; }
+            .exp-header { flex-direction: column; gap: 0.5rem; }
+            .logo-track { gap: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background Glow Spheres -->
+    <div class="glow-sphere glow-1"></div>
+    <div class="glow-sphere glow-2"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">MOHAMED<span>.YASSIN</span></a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#clients">Clients</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <!-- Hero Section -->
+        <section class="hero" id="about">
+            <div class="hero-content">
+                <span class="badge">Open For Remote Roles & Selected Freelance Projects</span>
+                <h1>Mohamed Yassin</h1>
+                <h2>WordPress & WooCommerce Expert Developer</h2>
+                <p>Specializing in full-stack website customization, custom features, payment gateway integrations, and optimized e-commerce development. Delivered over 40+ end-to-end client projects from analysis through staging, deployment, and support.</p>
+                <div class="cta-buttons">
+                    <a href="#contact" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Let's Talk</a>
+                    <a href="#experience" class="btn btn-secondary"><i class="fa-solid fa-briefcase"></i> View Work</a>
+                </div>
+            </div>
+
+            <!-- Profile Image Inside Clients Folder -->
+            <div class="hero-image-wrapper">
+                <img src="clients/profile.jpg" alt="Mohamed Yassin" class="hero-image">
+            </div>
+        </section>
+
+        <!-- CLIENTS / BRAND LOGO CAROUSEL SECTION (Inside 'clients' folder) -->
+        <section class="clients-section reveal" id="clients">
+            <div class="clients-title">Trusted By Businesses & Brands Across The Gulf & Egypt</div>
+            <div class="logo-slider">
+                <div class="logo-track">
+                    
+                    <!-- Real Client Logos -->
+                    <div class="logo-item"><img src="clients/14.png" alt="Egypt Whispers"></div>
+                    <div class="logo-item"><img src="clients/15.png" alt="Modern Scientific"></div>
+                    <div class="logo-item"><img src="clients/16.png" alt="Deals Trading Co."></div>
+                    <div class="logo-item"><img src="clients/17.png" alt="Badshy"></div>
+                    <div class="logo-item"><img src="clients/00.png" alt="Delta Line"></div>
+                    <div class="logo-item"><img src="clients/0.png" alt="Saeed Al-Ghamdi Contracting"></div>
+                    <div class="logo-item"><img src="clients/01.png" alt="Mobik Shop"></div>
+                    <div class="logo-item"><img src="clients/1.png" alt="Meem Knowledge"></div>
+                    <div class="logo-item"><img src="clients/02 (1).png" alt="Nagham Bookstore"></div>
+                    <div class="logo-item"><img src="clients/2 (1).png" alt="7D Solutions"></div>
+
+                    <!-- Duplicated Track for Seamless Infinite Auto-Scroll Loop -->
+                    <div class="logo-item"><img src="clients/14.png" alt="Egypt Whispers"></div>
+                    <div class="logo-item"><img src="clients/15.png" alt="Modern Scientific"></div>
+                    <div class="logo-item"><img src="clients/16.png" alt="Deals Trading Co."></div>
+                    <div class="logo-item"><img src="clients/17.png" alt="Badshy"></div>
+                    <div class="logo-item"><img src="clients/00.png" alt="Delta Line"></div>
+                    <div class="logo-item"><img src="clients/0.png" alt="Saeed Al-Ghamdi Contracting"></div>
+                    <div class="logo-item"><img src="clients/01.png" alt="Mobik Shop"></div>
+                    <div class="logo-item"><img src="clients/1.png" alt="Meem Knowledge"></div>
+                    <div class="logo-item"><img src="clients/02 (1).png" alt="Nagham Bookstore"></div>
+                    <div class="logo-item"><img src="clients/2 (1).png" alt="7D Solutions"></div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Skills -->
+        <section id="skills" style="padding-top: 3rem;">
+            <h2 class="section-title reveal">Technical Capabilities</h2>
+            <div class="skills-grid">
+                
+                <div class="skill-card reveal">
+                    <h3><i class="fa-brands fa-wordpress"></i> WordPress & Core</h3>
+                    <ul>
+                        <li>Theme & Plugin Customization</li>
+                        <li>Elementor Custom Layouts</li>
+                        <li>Custom PHP Hooks & Logic</li>
+                        <li>Performance & Speed Optimization</li>
+                    </ul>
+                </div>
+
+                <div class="skill-card reveal">
+                    <h3><i class="fa-solid fa-cart-shopping"></i> E-Commerce Architecture</h3>
+                    <ul>
+                        <li>WooCommerce Full Setups</li>
+                        <li>Custom Checkout Optimization</li>
+                        <li>Cart Abandonment Reduction</li>
+                        <li>Product Catalog Management</li>
+                    </ul>
+                </div>
+
+                <div class="skill-card reveal">
+                    <h3><i class="fa-solid fa-credit-card"></i> Payment & Shipping APIs</h3>
+                    <ul>
+                        <li>Kashier, Paymob, Tap Gateways</li>
+                        <li>Tabby & Tamara BNPL Services</li>
+                        <li>SMSA Express Shipping API</li>
+                        <li>Custom API & Webhook Logic</li>
+                    </ul>
+                </div>
+
+                <div class="skill-card reveal">
+                    <h3><i class="fa-solid fa-laptop-code"></i> Frontend & Development</h3>
+                    <ul>
+                        <li>PHP, CSS3, JavaScript</li>
+                        <li>RESTful APIs Integration</li>
+                        <li>AI-Assisted Workflow & Refactoring</li>
+                        <li>UI & Brand Alignment</li>
+                    </ul>
+                </div>
+
+                <div class="skill-card reveal">
+                    <h3><i class="fa-solid fa-server"></i> Server & Security</h3>
+                    <ul>
+                        <li>Cloud Hosting & VPS Setup</li>
+                        <li>Cloudflare DNS Management</li>
+                        <li>SSL, Backups & Domain Setup</li>
+                        <li>Security Patches & Vulnerabilities</li>
+                    </ul>
+                </div>
+
+                <div class="skill-card reveal">
+                    <h3><i class="fa-solid fa-list-check"></i> Systems & Delivery</h3>
+                    <ul>
+                        <li>Tutor LMS E-Learning Platforms</li>
+                        <li>Custom Booking & Hall Reservations</li>
+                        <li>Dashboard Administration Training</li>
+                        <li>Full Technical Documentation</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Professional Experience Timeline -->
+        <section id="experience" style="padding-top: 5rem;">
+            <h2 class="section-title reveal">Work Experience</h2>
+            <div class="timeline">
+                
+                <div class="exp-item reveal">
+                    <div class="exp-header">
+                        <div class="exp-title">
+                            <h3>Web Developer & Digital Platforms Specialist</h3>
+                            <h4>Beonline — Bahrain (Part-time | Remote)</h4>
+                        </div>
+                        <span class="exp-date">Jul 2024 – Jun 2026</span>
+                    </div>
+                    <ul class="exp-bullets">
+                        <li>Orchestrated full lifecycle delivery for 40+ client web projects, handling requirements analysis, staging, deployment, and post-launch support.</li>
+                        <li>Architected custom WooCommerce e-commerce stores and optimized checkout flows to reduce cart abandonment.</li>
+                        <li>Engineered 6+ tailored WordPress sites, including studio hall reservation platforms, gym websites, nursery sites, and event management pages.</li>
+                        <li>Enhanced theme functions and Elementor layouts for 25+ business client sites, boosting page load speeds by up to 30%.</li>
+                        <li>Connected RESTful APIs for shipping providers (SMSA Express) and payment gateways to automate regional fulfillment processes.</li>
+                        <li>Deployed online learning environments using Tutor LMS integrated with custom registration logic.</li>
+                        <li>Resolved 30+ technical website issues, maintaining high availability across client environments.</li>
+                    </ul>
+                </div>
+
+                <div class="exp-item reveal">
+                    <div class="exp-header">
+                        <div class="exp-title">
+                            <h3>Website Administrator</h3>
+                            <h4>Giza Engineers Syndicate — Giza, Egypt</h4>
+                        </div>
+                        <span class="exp-date">Aug 2015 – May 2026</span>
+                    </div>
+                    <ul class="exp-bullets">
+                        <li>Pioneered and launched the organization's official 1st WordPress website, establishing its core digital presence.</li>
+                        <li>Maintained the primary website and digital platforms, ensuring smooth content updates, performance enhancements, and user accessibility.</li>
+                        <li>Administered cloud hosting infrastructure, Cloudflare DNS configurations, SSL certificates, daily backups, and corporate email accounts.</li>
+                        <li>Sustained high site security by performing regular core updates, database cleanups, and technical maintenance.</li>
+                    </ul>
+                </div>
+
+                <div class="exp-item reveal">
+                    <div class="exp-header">
+                        <div class="exp-title">
+                            <h3>Independent Web Developer</h3>
+                            <h4>Freelance</h4>
+                        </div>
+                        <span class="exp-date">Jan 2020 – Mar 2024</span>
+                    </div>
+                    <ul class="exp-bullets">
+                        <li>Executed 20+ independent web projects from initial client consultation to final server deployment and ongoing maintenance.</li>
+                        <li>Extended standard plugin capabilities using custom PHP hooks, CSS styling, and JavaScript scripts.</li>
+                        <li>Configured payment gateways and shipping integrations across 10+ online retail stores.</li>
+                        <li>Implemented specialized booking platforms and Tutor LMS e-learning environments.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" style="padding-top: 5rem;">
+            <div class="contact-box reveal">
+                <h3>Let's Build Your Next Web Project</h3>
+                <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">Ready to turn complex requirements into fast, secure, and user-friendly digital platforms? Get in touch today.</p>
+                <div class="contact-info">
+                    <a href="mailto:mohamed-yassin88@outlook.com" class="contact-item">
+                        <i class="fa-solid fa-envelope"></i> mohamed-yassin88@outlook.com
+                    </a>
+                    <a href="https://wa.me/201026303006" target="_blank" class="contact-item">
+                        <i class="fa-solid fa-phone"></i> +20 10 26303006
+                    </a>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-location-dot"></i> Cairo, Egypt
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Mohamed Yassin. Engineered with HTML, CSS & JavaScript.</p>
+    </footer>
+
+    <!-- Interactive JS Scripts -->
+    <script>
+        // 1. Scroll Reveal Animation
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.reveal');
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 100;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        // 2. Interactive 3D Card Hover Effect
+        const cards = document.querySelectorAll('.skill-card, .exp-item');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    </script>
+</body>
+</html>
