@@ -103,9 +103,11 @@
             transition: all 0.3s;
         }
 
-        .nav-links a:hover {
-            color: var(--accent-gold);
-            text-shadow: 0 0 10px var(--accent-gold-glow);
+        @media (hover: hover) and (pointer: fine) {
+            .nav-links a:hover {
+                color: var(--accent-gold);
+                text-shadow: 0 0 10px var(--accent-gold-glow);
+            }
         }
 
         /* Mobile menu toggle button (hidden on desktop) */
@@ -160,9 +162,11 @@
             transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
 
-        .hero-image-wrapper:hover .hero-image {
-            transform: scale(1.03);
-            box-shadow: 0 0 45px var(--accent-gold-glow);
+        @media (hover: hover) and (pointer: fine) {
+            .hero-image-wrapper:hover .hero-image {
+                transform: scale(1.03);
+                box-shadow: 0 0 45px var(--accent-gold-glow);
+            }
         }
 
         .badge {
@@ -245,9 +249,11 @@
             box-shadow: 0 4px 20px var(--accent-gold-glow);
         }
 
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px var(--accent-gold-glow);
+        @media (hover: hover) and (pointer: fine) {
+            .btn-primary:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 8px 30px var(--accent-gold-glow);
+            }
         }
 
         .btn-secondary {
@@ -256,10 +262,12 @@
             border: 1px solid var(--border-color);
         }
 
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: var(--text-muted);
-            transform: translateY(-3px);
+        @media (hover: hover) and (pointer: fine) {
+            .btn-secondary:hover {
+                background: rgba(255, 255, 255, 0.08);
+                border-color: var(--text-muted);
+                transform: translateY(-3px);
+            }
         }
 
         /* Clients Logo Carousel Section */
@@ -299,7 +307,9 @@
             width: max-content;
         }
 
-        .logo-track:hover { animation-play-state: paused; }
+        @media (hover: hover) and (pointer: fine) {
+            .logo-track:hover { animation-play-state: paused; }
+        }
 
         @keyframes scrollLogos {
             0% { transform: translateX(0); }
@@ -321,10 +331,12 @@
             flex-shrink: 0;
         }
 
-        .logo-item:hover {
-            border-color: var(--accent-gold);
-            transform: translateY(-4px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        @media (hover: hover) and (pointer: fine) {
+            .logo-item:hover {
+                border-color: var(--accent-gold);
+                transform: translateY(-4px);
+                box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            }
         }
 
         .logo-item img {
@@ -335,9 +347,11 @@
             transition: filter 0.3s, transform 0.3s;
         }
 
-        .logo-item:hover img {
-            filter: grayscale(0%) brightness(1);
-            transform: scale(1.08);
+        @media (hover: hover) and (pointer: fine) {
+            .logo-item:hover img {
+                filter: grayscale(0%) brightness(1);
+                transform: scale(1.08);
+            }
         }
 
         /* Section Titles */
@@ -378,10 +392,12 @@
             min-width: 0;
         }
 
-        .skill-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(245, 158, 11, 0.4);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        @media (hover: hover) and (pointer: fine) {
+            .skill-card:hover {
+                transform: translateY(-8px);
+                border-color: rgba(245, 158, 11, 0.4);
+                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            }
         }
 
         .skill-card h3 {
@@ -422,8 +438,10 @@
             min-width: 0;
         }
 
-        .exp-item:hover {
-            border-color: rgba(56, 189, 248, 0.4);
+        @media (hover: hover) and (pointer: fine) {
+            .exp-item:hover {
+                border-color: rgba(56, 189, 248, 0.4);
+            }
         }
 
         .exp-header {
@@ -505,13 +523,22 @@
             word-break: break-word;
         }
 
-        .contact-item:hover {
-            border-color: var(--accent-gold);
-            background: rgba(245, 158, 11, 0.1);
-            transform: translateY(-3px);
+        @media (hover: hover) and (pointer: fine) {
+            .contact-item:hover {
+                border-color: var(--accent-gold);
+                background: rgba(245, 158, 11, 0.1);
+                transform: translateY(-3px);
+            }
         }
 
         .contact-item i { color: var(--accent-gold); font-size: 1.2rem; flex-shrink: 0; }
+
+        .contact-text-short { display: none; }
+
+        @media (max-width: 480px) {
+            .contact-text-full { display: none; }
+            .contact-text-short { display: inline; }
+        }
 
         footer {
             text-align: center;
@@ -601,6 +628,17 @@
                 display: block;
                 padding: 1rem 1.5rem;
                 border-top: 1px solid var(--border-color);
+            }
+            .badge {
+                font-size: 0.78rem;
+                padding: 0.55rem 1rem;
+                align-items: flex-start;
+                text-align: left;
+                gap: 0.6rem;
+            }
+            .badge::before {
+                margin-top: 0.35em;
+                flex-shrink: 0;
             }
             .hero h1 { 
                 font-size: 2.4rem; 
@@ -924,7 +962,9 @@
                 <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">Ready to turn complex requirements into fast, secure, and user-friendly digital platforms? Get in touch today.</p>
                 <div class="contact-info">
                     <a href="mailto:mohamed-yassin88@outlook.com" class="contact-item">
-                        <i class="fa-solid fa-envelope"></i> mohamed-yassin88@outlook.com
+                        <i class="fa-solid fa-envelope"></i>
+                        <span class="contact-text-full">mohamed-yassin88@outlook.com</span>
+                        <span class="contact-text-short">Email Me</span>
                     </a>
                     <a href="https://wa.me/201026303006" target="_blank" class="contact-item">
                         <i class="fa-solid fa-phone"></i> +20 10 26303006
