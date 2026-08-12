@@ -31,11 +31,15 @@
             scroll-behavior: smooth;
         }
 
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
         body {
             background-color: var(--bg-dark);
             color: var(--text-main);
             line-height: 1.6;
-            overflow-x: hidden;
         }
 
         /* Glowing Background Elements */
@@ -104,6 +108,21 @@
             text-shadow: 0 0 10px var(--accent-gold-glow);
         }
 
+        /* Mobile menu toggle button (hidden on desktop) */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            font-size: 1.2rem;
+            width: 42px;
+            height: 42px;
+            border-radius: 8px;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
         .container {
             max-width: var(--container-width);
             margin: 0 auto;
@@ -121,6 +140,7 @@
 
         .hero-content {
             flex: 1;
+            min-width: 0;
         }
 
         .hero-image-wrapper {
@@ -167,6 +187,7 @@
             background: var(--accent-gold);
             border-radius: 50%;
             animation: blink 1.5s infinite;
+            flex-shrink: 0;
         }
 
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
@@ -177,8 +198,11 @@
             line-height: 1.1;
             margin-bottom: 1rem;
             background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            color: var(--text-main);
+            word-break: break-word;
         }
 
         .hero h2 {
@@ -198,6 +222,7 @@
         .cta-buttons {
             display: flex;
             gap: 1.2rem;
+            flex-wrap: wrap;
         }
 
         .btn {
@@ -255,6 +280,7 @@
             color: var(--text-muted);
             margin-bottom: 2rem;
             font-weight: 700;
+            padding: 0 1rem;
         }
 
         .logo-slider {
@@ -270,6 +296,7 @@
             gap: 3rem;
             animation: scrollLogos 25s linear infinite;
             white-space: nowrap;
+            width: max-content;
         }
 
         .logo-track:hover { animation-play-state: paused; }
@@ -291,6 +318,7 @@
             height: 95px;
             transition: all 0.3s;
             cursor: pointer;
+            flex-shrink: 0;
         }
 
         .logo-item:hover {
@@ -335,7 +363,7 @@
         /* Skills Grid */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
             gap: 1.8rem;
         }
 
@@ -347,6 +375,7 @@
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
+            min-width: 0;
         }
 
         .skill-card:hover {
@@ -390,6 +419,7 @@
             border-radius: 16px;
             border: 1px solid var(--border-color);
             transition: all 0.3s;
+            min-width: 0;
         }
 
         .exp-item:hover {
@@ -401,9 +431,11 @@
             justify-content: space-between;
             align-items: flex-start;
             flex-wrap: wrap;
+            gap: 0.8rem;
             margin-bottom: 1.2rem;
         }
 
+        .exp-title { min-width: 0; }
         .exp-title h3 { font-size: 1.4rem; font-weight: 700; }
         .exp-title h4 { color: var(--accent-blue); font-size: 1.05rem; font-weight: 600; }
 
@@ -414,6 +446,7 @@
             font-size: 0.85rem;
             color: var(--text-muted);
             border: 1px solid var(--border-color);
+            white-space: nowrap;
         }
 
         .exp-bullets { list-style: none; }
@@ -468,6 +501,8 @@
             border: 1px solid var(--border-color);
             transition: all 0.3s;
             font-weight: 600;
+            max-width: 100%;
+            word-break: break-word;
         }
 
         .contact-item:hover {
@@ -476,7 +511,7 @@
             transform: translateY(-3px);
         }
 
-        .contact-item i { color: var(--accent-gold); font-size: 1.2rem; }
+        .contact-item i { color: var(--accent-gold); font-size: 1.2rem; flex-shrink: 0; }
 
         footer {
             text-align: center;
@@ -498,6 +533,11 @@
             transform: translateY(0);
         }
 
+        @media (prefers-reduced-motion: reduce) {
+            * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+            .reveal { opacity: 1; transform: none; }
+        }
+
         /* =================================================== */
         /* MOBILE & TABLET RESPONSIVE STYLES (تحسينات الموبايل) */
         /* =================================================== */
@@ -508,11 +548,13 @@
                 justify-content: center;
                 gap: 2rem;
                 padding-top: 2rem;
+                min-height: auto;
             }
             .hero-content {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+                width: 100%;
             }
             .hero-image {
                 width: 210px;
@@ -529,11 +571,36 @@
                 padding: 5.5rem 1.2rem 2rem;
             }
             .nav-container {
-                justify-content: center;
-                padding: 1rem;
+                justify-content: space-between;
+                padding: 1rem 1.2rem;
             }
-            .nav-links { 
-                display: none; /* إخفاء الهيدر الجانبي المعقد للشاشات الصغيرة */
+            .nav-toggle {
+                display: flex;
+            }
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                gap: 0;
+                background: rgba(11, 15, 23, 0.98);
+                backdrop-filter: blur(16px);
+                border-bottom: 1px solid var(--border-color);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease;
+            }
+            .nav-links.open {
+                max-height: 320px;
+            }
+            .nav-links li {
+                width: 100%;
+            }
+            .nav-links a {
+                display: block;
+                padding: 1rem 1.5rem;
+                border-top: 1px solid var(--border-color);
             }
             .hero h1 { 
                 font-size: 2.4rem; 
@@ -603,10 +670,44 @@
             .contact-box h3 {
                 font-size: 1.6rem;
             }
+            .contact-info {
+                flex-direction: column;
+                align-items: stretch;
+            }
             .contact-item {
                 width: 100%;
                 padding: 0.9rem 1rem;
                 font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .hero h1 {
+                font-size: 1.9rem;
+            }
+            .hero-image {
+                width: 150px;
+                height: 150px;
+            }
+            .badge {
+                font-size: 0.75rem;
+                padding: 0.4rem 0.9rem;
+                text-align: center;
+            }
+            .section-title {
+                font-size: 1.7rem;
+            }
+            .logo-item {
+                min-width: 130px;
+                height: 65px;
+                padding: 0.6rem 1rem;
+            }
+            .logo-item img {
+                max-height: 36px;
+                max-width: 95px;
+            }
+            .contact-box h3 {
+                font-size: 1.35rem;
             }
         }
     </style>
@@ -621,7 +722,10 @@
     <nav>
         <div class="nav-container">
             <a href="#" class="logo">MOHAMED<span>.YASSIN</span></a>
-            <ul class="nav-links">
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
                 <li><a href="#about">About</a></li>
                 <li><a href="#clients">Clients</a></li>
                 <li><a href="#skills">Skills</a></li>
@@ -868,6 +972,24 @@
                 card.style.setProperty('--mouse-y', `${y}px`);
             });
         });
+
+        // 3. Mobile menu toggle
+        const navToggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        if (navToggle && navLinks) {
+            navToggle.addEventListener('click', () => {
+                const isOpen = navLinks.classList.toggle('open');
+                navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                navToggle.innerHTML = isOpen ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
+            });
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('open');
+                    navToggle.setAttribute('aria-expanded', 'false');
+                    navToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+                });
+            });
+        }
     </script>
 </body>
 </html>
