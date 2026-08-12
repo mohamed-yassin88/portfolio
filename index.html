@@ -61,7 +61,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(11, 15, 23, 0.75);
+            background: rgba(11, 15, 23, 0.85);
             backdrop-filter: blur(16px);
             z-index: 1000;
             border-bottom: 1px solid var(--border-color);
@@ -110,9 +110,9 @@
             padding: 7rem 1.5rem 3rem;
         }
 
-        /* Hero Section with Profile Image */
+        /* Hero Section */
         .hero {
-            min-height: 85vh;
+            min-height: 80vh;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -208,6 +208,7 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 0.6rem;
             position: relative;
             overflow: hidden;
@@ -331,7 +332,7 @@
             border-radius: 2px;
         }
 
-        /* Skills Grid with Glassmorphism */
+        /* Skills Grid */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -457,6 +458,7 @@
         .contact-item {
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 0.8rem;
             color: var(--text-main);
             text-decoration: none;
@@ -496,11 +498,16 @@
             transform: translateY(0);
         }
 
+        /* =================================================== */
+        /* MOBILE & TABLET RESPONSIVE STYLES (تحسينات الموبايل) */
+        /* =================================================== */
         @media (max-width: 992px) {
             .hero {
                 flex-direction: column-reverse;
                 text-align: center;
                 justify-content: center;
+                gap: 2rem;
+                padding-top: 2rem;
             }
             .hero-content {
                 display: flex;
@@ -508,18 +515,99 @@
                 align-items: center;
             }
             .hero-image {
-                width: 220px;
-                height: 220px;
-                margin-bottom: 1rem;
+                width: 210px;
+                height: 210px;
+            }
+            .cta-buttons {
+                width: 100%;
+                justify-content: center;
             }
         }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.6rem; }
-            .hero h2 { font-size: 1.3rem; }
-            .nav-links { display: none; }
-            .exp-header { flex-direction: column; gap: 0.5rem; }
-            .logo-track { gap: 1.5rem; }
+            .container {
+                padding: 5.5rem 1.2rem 2rem;
+            }
+            .nav-container {
+                justify-content: center;
+                padding: 1rem;
+            }
+            .nav-links { 
+                display: none; /* إخفاء الهيدر الجانبي المعقد للشاشات الصغيرة */
+            }
+            .hero h1 { 
+                font-size: 2.4rem; 
+                line-height: 1.2;
+            }
+            .hero h2 { 
+                font-size: 1.3rem; 
+                margin-bottom: 1rem;
+            }
+            .hero p {
+                font-size: 1rem;
+                margin-bottom: 1.8rem;
+            }
+            .cta-buttons {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+            .btn {
+                width: 100%; /* جعل الأزرار بعرض الشاشة لسهولة الضغط بالموبايل */
+            }
+            .hero-image {
+                width: 180px;
+                height: 180px;
+            }
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            .skill-card {
+                padding: 1.5rem;
+            }
+            .exp-item {
+                padding: 1.5rem;
+            }
+            .exp-header { 
+                flex-direction: column; 
+                gap: 0.5rem; 
+            }
+            .exp-title h3 {
+                font-size: 1.2rem;
+            }
+            .exp-title h4 {
+                font-size: 0.95rem;
+            }
+            .exp-date {
+                align-self: flex-start;
+                margin-top: 0.3rem;
+            }
+            .clients-section {
+                margin: 2rem 0 3rem;
+                padding: 2rem 0;
+            }
+            .logo-track { 
+                gap: 1.5rem; 
+            }
+            .logo-item {
+                min-width: 160px;
+                height: 75px;
+                padding: 0.8rem 1.2rem;
+            }
+            .logo-item img {
+                max-height: 45px;
+                max-width: 120px;
+            }
+            .contact-box {
+                padding: 2.2rem 1.2rem;
+            }
+            .contact-box h3 {
+                font-size: 1.6rem;
+            }
+            .contact-item {
+                width: 100%;
+                padding: 0.9rem 1rem;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
@@ -564,7 +652,7 @@
             </div>
         </section>
 
-        <!-- CLIENTS / BRAND LOGO CAROUSEL SECTION (Inside 'clients' folder) -->
+        <!-- CLIENTS / BRAND LOGO CAROUSEL SECTION -->
         <section class="clients-section reveal" id="clients">
             <div class="clients-title">Trusted By Businesses & Brands Across The Gulf & Egypt</div>
             <div class="logo-slider">
@@ -599,7 +687,7 @@
         </section>
 
         <!-- Technical Skills -->
-        <section id="skills" style="padding-top: 3rem;">
+        <section id="skills" style="padding-top: 2rem;">
             <h2 class="section-title reveal">Technical Capabilities</h2>
             <div class="skills-grid">
                 
@@ -667,7 +755,7 @@
         </section>
 
         <!-- Professional Experience Timeline -->
-        <section id="experience" style="padding-top: 5rem;">
+        <section id="experience" style="padding-top: 3.5rem;">
             <h2 class="section-title reveal">Work Experience</h2>
             <div class="timeline">
                 
@@ -726,7 +814,7 @@
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" style="padding-top: 5rem;">
+        <section id="contact" style="padding-top: 3.5rem;">
             <div class="contact-box reveal">
                 <h3>Let's Build Your Next Web Project</h3>
                 <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">Ready to turn complex requirements into fast, secure, and user-friendly digital platforms? Get in touch today.</p>
@@ -748,7 +836,7 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2026 Mohamed Yassin.</p>
+        <p>&copy; 2026 Mohamed Yassin. All rights reserved.</p>
     </footer>
 
     <!-- Interactive JS Scripts -->
@@ -759,7 +847,7 @@
             for (let i = 0; i < reveals.length; i++) {
                 const windowHeight = window.innerHeight;
                 const elementTop = reveals[i].getBoundingClientRect().top;
-                const elementVisible = 100;
+                const elementVisible = 80;
                 
                 if (elementTop < windowHeight - elementVisible) {
                     reveals[i].classList.add('active');
