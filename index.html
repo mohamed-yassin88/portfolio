@@ -1225,7 +1225,7 @@
         ['work', 'skills', 'experience', 'contact'].forEach(id => { const s = document.getElementById(id); if (s) spy.observe(s); });
 
         // 6. Live screenshots of client sites (WordPress mShots service), loaded lazily
-        const shotUrl = site => `https://s0.wp.com/mshots/v1/${encodeURIComponent(site)}?w=1000&h=2200`;
+        const shotUrl = site => `https://s0.wp.com/mshots/v1/${encodeURIComponent(site)}?vpw=1280&vph=2800&w=640&h=1400`;
         function loadShot(card, attempt = 0) {
             const vp = card.querySelector('.viewport');
             const img = new Image();
