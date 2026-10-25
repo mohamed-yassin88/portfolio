@@ -497,7 +497,7 @@
             opacity: 0;
         }
 
-        .viewport.loaded img { opacity: 1; }
+        .viewport.loaded img { opacity: 1; min-height: 100%; object-fit: cover; object-position: top; }
 
         .project:hover .viewport img,
         .project:focus-visible .viewport img { transform: translateY(var(--pan, -60%)); }
@@ -789,6 +789,13 @@
             .chip-float { display: none; }
         }
 
+        @media (max-width: 480px) {
+            .contact { padding: 1.75rem 1.1rem; }
+            .contact-link { padding: .9rem 1rem; gap: .8rem; }
+            .contact-link .val { font-size: .88rem; overflow-wrap: normal; }
+            .copy-btn { display: none; }
+        }
+
         /* Respect reduced-motion settings */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
@@ -929,6 +936,8 @@
                         </div>
                     </a>
 
+                    <a class="project reveal" data-cat="booking store" data-site="https://homepreneur-eg.com" href="https://homepreneur-eg.com" target="_blank" rel="noopener"><div class="frame"><div class="frame-bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="frame-url">homepreneur-eg.com</span></div><div class="viewport"></div></div><div class="project-meta"><h3>Homepreneur <i class="fa-solid fa-arrow-up-right-from-square"></i></h3><p>Online academy teaching women to start a business from home, with a course store.</p><div class="tags"><span class="tag place">Egypt</span><span class="tag">E-learning</span><span class="tag">Course store</span></div></div></a>
+
                     <a class="project reveal" data-cat="store" data-site="https://naghambook.com" href="https://naghambook.com" target="_blank" rel="noopener">
                         <div class="frame"><div class="frame-bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="frame-url">naghambook.com</span></div><div class="viewport"></div></div>
                         <div class="project-meta">
@@ -947,7 +956,7 @@
                         </div>
                     </a>
 
-                    <a class="project reveal" data-cat="store" data-site="https://melaity.store" href="https://melaity.store" target="_blank" rel="noopener">
+                    <a class="project reveal" data-cat="store" data-site="https://melaity.store" data-shot="clients/shots/melaity.jpg" href="https://melaity.store" target="_blank" rel="noopener">
                         <div class="frame"><div class="frame-bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="frame-url">melaity.store</span></div><div class="viewport"></div></div>
                         <div class="project-meta">
                             <h3>Melaity <i class="fa-solid fa-arrow-up-right-from-square"></i></h3>
@@ -965,7 +974,7 @@
                         </div>
                     </a>
 
-                    <a class="project reveal" data-cat="company" data-site="https://deltaline-sa.com" href="https://deltaline-sa.com" target="_blank" rel="noopener">
+                    <a class="project reveal" data-cat="company" data-site="https://deltaline-sa.com/" href="https://deltaline-sa.com" target="_blank" rel="noopener">
                         <div class="frame"><div class="frame-bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="frame-url">deltaline-sa.com</span></div><div class="viewport"></div></div>
                         <div class="project-meta">
                             <h3>Delta Line <i class="fa-solid fa-arrow-up-right-from-square"></i></h3>
@@ -974,7 +983,7 @@
                         </div>
                     </a>
 
-                    <a class="project reveal" data-cat="company" data-site="https://rac-sa.net" href="https://rac-sa.net" target="_blank" rel="noopener">
+                    <a class="project reveal" data-cat="company" data-site="https://rac-sa.net" data-shot="https://s0.wp.com/mshots/v1/https%3A%2F%2Frac-sa.net?vpw=1280&amp;vph=800&amp;w=640&amp;h=400" href="https://rac-sa.net" target="_blank" rel="noopener">
                         <div class="frame"><div class="frame-bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span class="frame-url">rac-sa.net</span></div><div class="viewport"></div></div>
                         <div class="project-meta">
                             <h3>RAC <i class="fa-solid fa-arrow-up-right-from-square"></i></h3>
@@ -1119,7 +1128,7 @@
                         </a>
                         <div class="contact-link">
                             <i class="fa-solid fa-envelope"></i>
-                            <a href="mailto:mohamed-yassin88@outlook.com" style="text-decoration:none; min-width:0;"><span class="lbl">Email</span><span class="val">mohamed-yassin88@outlook.com</span></a>
+                            <a href="mailto:mohamed-yassin88@outlook.com" style="text-decoration:none; min-width:0;"><span class="lbl">Email</span><span class="val">mohamed-yassin88<wbr>@outlook.com</span></a>
                             <button class="copy-btn" data-copy="mohamed-yassin88@outlook.com" aria-label="Copy email address">Copy</button>
                         </div>
                         <a class="contact-link" href="https://www.linkedin.com/in/m-yassin" target="_blank" rel="noopener">
@@ -1233,7 +1242,7 @@
             img.decoding = 'async';
             img.onload = () => {
                 // mShots returns a small placeholder while it renders; retry a few times
-                if (img.naturalWidth < 500 && attempt < 4) return setTimeout(() => loadShot(card, attempt + 1), 3000);
+                if (!card.dataset.shot && img.naturalHeight < 1000 && attempt < 6) return setTimeout(() => loadShot(card, attempt + 1), 3000);
                 vp.innerHTML = '';
                 vp.appendChild(img);
                 vp.classList.add('loaded');
@@ -1242,7 +1251,7 @@
                 vp.style.setProperty('--pan', `-${pan}px`);
                 img.style.setProperty('--pan', `-${pan}px`);
             };
-            img.src = shotUrl(card.dataset.site) + (attempt ? `&r=${attempt}` : '');
+            img.src = card.dataset.shot || (shotUrl(card.dataset.site) + (attempt ? `&r=${attempt}` : ''));
         }
         const shotObserver = new IntersectionObserver(entries => {
             entries.forEach(e => { if (e.isIntersecting) { loadShot(e.target); shotObserver.unobserve(e.target); } });
